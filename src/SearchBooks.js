@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import DebounceInput from 'react-debounce-input';
+import PropTypes from 'prop-types';
 import Shelf from './Shelf';
 
 
 class SearchBooks extends Component {
+
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    empty: PropTypes.func.isRequired,
+    moveToShelf: PropTypes.func.isRequired,
+    search: PropTypes.func.isRequired
+  };
 
   componentDidMount() {
     this.props.empty();
