@@ -19,6 +19,33 @@ class BooksApp extends React.Component {
     });
   };
 
+  emptySearch = () => this.setState({searchResults = []});
+
+  Query = (event) => {
+    const query = event.target.value;
+    if(query !== '') {
+      BooksApi.search(query)
+      .then(books => {
+        if(books.error || !books) {
+          this.setState({searchResults: []});
+        } else {
+          books = books.map(book => {
+            this.state.myBooks.forEach(myBook => {
+              if(myBook.id === book.id) {
+                book.shelf = myBook.shelf;
+              }
+            });
+            return book;
+          });
+
+          this.setState({searchResults: books});
+        }
+      })
+    } else {
+      this.setState({searchResults: []});
+    }
+  }
+
   render() {
     return (
       <div>
@@ -26,7 +53,7 @@ class BooksApp extends React.Component {
           <ListBooks books={this.state.myBooks}/>
         )}/>
         <Route path='/search' render={() => (
-          <SearchBooks/>
+          <SearchBooks empty={this.emptySearch} search={this.Query} books={this.state.searchResults} />
         )}/>
       </div>
     )

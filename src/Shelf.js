@@ -8,8 +8,8 @@ class Shelf extends Component {
         <div className="bookshelf-books">
           <ol className="books-grid">
             {this.props.books && (
-              this.props.books.map((book, index) =>
-            <li key={index} >
+              this.props.books.map((book, id) =>
+            <li key={id} >
               <div className="book">
                 <div className="book-top">
                   <div

@@ -24,6 +24,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "react-debounce-input": "^3.2.3",
     "react-router-dom": "^5.2.0"
   }
 }
