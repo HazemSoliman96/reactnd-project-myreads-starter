@@ -19,6 +19,7 @@ class SearchBooks extends Component {
   }
 
   render() {
+    const { books, moveToShelf, search } = this.props;
     return (
       <div className="app">
           <div className="search-books">
@@ -29,14 +30,14 @@ class SearchBooks extends Component {
                   debounceTimeout={300}
                   element='input'
                   type="text"
-                  value={this.props.books.string}
-                  onChange={this.props.search}
+                  value={books.string}
+                  onChange={search}
                   placeholder="Search by title or author"/>
 
               </div>
             </div>
             <div className="search-books-results">
-              <Shelf moveToShelf={this.props.moveToShelf} title='Search Results' books={this.props.books}/>
+              <Shelf moveToShelf={moveToShelf} title='Search Results' books={books}/>
             </div>
           </div>
           </div>
