@@ -12,11 +12,15 @@ class BooksApp extends React.Component {
     searchResults: []
   };
 
-  componentDidMount() {
+  getbooks() {
     BooksApi.getAll()
     .then(books => {
       this.setState({myBooks: books});
     });
+  }
+
+  componentDidMount() {
+    this.getbooks();
   };
 
   emptySearch = () => this.setState({searchResults: []});
@@ -47,28 +51,10 @@ class BooksApp extends React.Component {
   }
 
   moveToShelf = (book, shelf) => {
-    if(shelf === 'none') {
-      this.setState(currentState => ({
-        myBooks: currentState.myBooks.filter(myBook => myBook.id !== book.id)
-      }));
-    } else if(book.shelf !== shelf) {
-      let books, search = [];
-      let myBooksId = this.state.myBooks.map(book => book.id);
-      let searchResultsId = this.state.searchResults.map(book => book.id);
+   if(book.shelf !== shelf) {
       BooksApi.update(book, shelf)
       .then(() => {
-        if(myBooksId.includes(book.id) || searchResultsId.includes(book.id)) {
-          books = this.state.myBooks.map(mybook => mybook.id === book.id ? {...mybook, shelf} : mybook);
-          search = this.state.searchResults.map(mybook => mybook.id === book.id ? {...mybook, shelf} : mybook);
-        } else {
-          book.shelf = shelf;
-          books = [...myBooks, book];
-          search = [...searchResults, book];
-        }
-        this.setState({
-          myBooks: books,
-          searchResults: search
-        })
+        this.getbooks();
       });
     }
   }
