@@ -19,7 +19,7 @@ class BooksApp extends React.Component {
     });
   };
 
-  emptySearch = () => this.setState({searchResults = []});
+  emptySearch = () => this.setState({searchResults: []});
 
   Query = (event) => {
     const query = event.target.value;

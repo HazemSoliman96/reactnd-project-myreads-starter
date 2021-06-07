@@ -18,7 +18,7 @@ class Shelf extends Component {
                       width: 128,
                       height: 193,
                       backgroundImage:
-                        `url(${book.imageLinks.thumbnail})`
+                        book.imageLinks? (`url(${book.imageLinks.thumbnail})`) : (`url('http://dwwp.wpengine.com/wp-content/uploads/2010/08/00-thumb-template.jpg')`)
                     }}
                   ></div>
                   <div className="book-shelf-changer">
@@ -36,7 +36,7 @@ class Shelf extends Component {
                   </div>
                 </div>
                 <div className="book-title">{book.title}</div>
-                <div className="book-authors">{book.authors.join(',')}</div>
+                <div className="book-authors">{book.authors? book.authors.join(',') : ''}</div>
               </div>
             </li>
     ))}
