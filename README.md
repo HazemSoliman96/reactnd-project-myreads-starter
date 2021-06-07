@@ -1,8 +1,8 @@
-# MyReads: A Book Lending App
+# MyReads: A Book Landing App
 
 ## Describtion
 
-This is a book lending app. it consists of 2 pages home page and search page.
+This is a book landing app. it consists of 2 pages home page and search page.
 In the home page you will find your books categorized.
 In the search page you can search for books and add it to your books in any shelf you like.
 
