@@ -28,7 +28,7 @@ class SearchBooks extends Component {
               </div>
             </div>
             <div className="search-books-results">
-              <Shelf title='Search Results' books={this.props.books}/>
+              <Shelf moveToShelf={this.props.moveToShelf} title='Search Results' books={this.props.books}/>
             </div>
           </div>
           </div>

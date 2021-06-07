@@ -46,14 +46,41 @@ class BooksApp extends React.Component {
     }
   }
 
+  moveToShelf = (book, shelf) => {
+    if(shelf === 'none') {
+      this.setState(currentState => ({
+        myBooks: currentState.myBooks.filter(myBook => myBook.id !== book.id)
+      }));
+    } else if(book.shelf !== shelf) {
+      let books, search = [];
+      let myBooksId = this.state.myBooks.map(book => book.id);
+      let searchResultsId = this.state.searchResults.map(book => book.id);
+      BooksApi.update(book, shelf)
+      .then(() => {
+        if(myBooksId.includes(book.id) || searchResultsId.includes(book.id)) {
+          books = this.state.myBooks.map(mybook => mybook.id === book.id ? {...mybook, shelf} : mybook);
+          search = this.state.searchResults.map(mybook => mybook.id === book.id ? {...mybook, shelf} : mybook);
+        } else {
+          book.shelf = shelf;
+          books = [...myBooks, book];
+          search = [...searchResults, book];
+        }
+        this.setState({
+          myBooks: books,
+          searchResults: search
+        })
+      });
+    }
+  }
+
   render() {
     return (
       <div>
         <Route exact path='/' render={() =>(
-          <ListBooks books={this.state.myBooks}/>
+          <ListBooks moveToShelf={this.moveToShelf} books={this.state.myBooks}/>
         )}/>
         <Route path='/search' render={() => (
-          <SearchBooks empty={this.emptySearch} search={this.Query} books={this.state.searchResults} />
+          <SearchBooks empty={this.emptySearch} search={this.Query} moveToShelf={this.moveToShelf} books={this.state.searchResults} />
         )}/>
       </div>
     )
